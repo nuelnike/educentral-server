@@ -1,0 +1,41 @@
+const Sequelize = require('sequelize') 
+export const ModelBuilder = () => { 
+
+	const tbl:string = "states";
+
+	const structure:any = {
+		id: {
+			type: Sequelize.INTEGER,
+			primaryKey: true,
+			autoIncrement: true
+		},
+		country_id: {
+			type: Sequelize.INTEGER,
+			allowNull: true, 
+		},
+		name: {
+			type: Sequelize.STRING
+		},
+		created_at: {
+			type: Sequelize.DATE,
+			defaultValue: Sequelize.NOW
+		},
+		updated_at: {
+			type: Sequelize.DATE,
+			defaultValue: Sequelize.NOW
+		}
+	};
+
+	const spec:any = {
+		underscored: true,
+		tableName: 'states',
+		name: {
+			singular: 'state',
+			plural: 'states'		
+		},
+		freezeTableName: true
+	};
+
+	return {tbl, structure, spec};
+	
+};
