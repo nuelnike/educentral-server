@@ -36,7 +36,7 @@ export const SaveReview = async (payload:any) => {
             } 
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to save review: "+ error.message); // log error message to .log file
+                Logger('error', "Failed execution: failed to save review: "+ error.message); // log error message to .log file
 
                 return  { 
                             code: GetStatusResponse("internal_server_err").code, 

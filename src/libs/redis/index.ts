@@ -15,13 +15,13 @@ try
     if(!client)
     {
         console.log("Redis connection failed.");
-        Logger('engine', "Failed connection: failed to connect to redis server: "); // log error message to .log file 
+        Logger('error', "Failed connection: failed to connect to redis server: "); // log error message to .log file 
     }
 } 
 catch (error:any) 
 {
     console.log("Redis connection failed.");
-    Logger('engine', "Failed connection: failed to connect to redis server: "+ error.message); // log error message to .log file 
+    Logger('error', "Failed connection: failed to connect to redis server: "+ error.message); // log error message to .log file 
 }
 
 // client.connect();  
@@ -39,7 +39,7 @@ export const Increment = async (val: string, time: number, expire:boolean = true
     }); 
 }
 
-export const Save = async (key:string, val:string, time:number, expire:boolean = true) =>
+export const Save = async (key:string, val:string, time:number = 0, expire:boolean = true) =>
 {
     // await client.set(key, (typeof val === "object") ? JSON.stringify(val) : val)
     // .then(() => {
@@ -52,7 +52,7 @@ export const Save = async (key:string, val:string, time:number, expire:boolean =
 
     await client.set(key, (typeof val === "object") ? JSON.stringify(val) : val)
     .then(() => {
-        if(expire) Expiry(key, time); // init cache lifespan if key needs to expire.
+        if(expire && time > 0) Expiry(key, time); // init cache lifespan if key needs to expire.
         return true; // return resp
     })
     .catch(() => {

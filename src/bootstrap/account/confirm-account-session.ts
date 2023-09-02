@@ -2,6 +2,8 @@
 
 export const ConfirmAccountSession = async (id:string, token:string) => {
 
+    
+
     const { Session } = require("../../core/database/model-listings"); // import DataHive model selector
     const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
     const { Logger } = require("../../log"); // import logger function
@@ -18,8 +20,6 @@ export const ConfirmAccountSession = async (id:string, token:string) => {
         else
         {
             cache_account = await Get("account_"+id); // get cache account from redis
-
-            
             if(!IfEmpty(cache_account)) // if account is not empty
             {
                 cache_account = Decrypt(cache_account); // decrypt cache
@@ -50,7 +50,7 @@ export const ConfirmAccountSession = async (id:string, token:string) => {
 
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to confirm account session: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to confirm account session: "+ error.message); // log error message to .log file 
             return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
  
@@ -91,7 +91,7 @@ export const ConfirmAccountSession = async (id:string, token:string) => {
             
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to confirm account session: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to confirm account session: "+ error.message); // log error message to .log file 
             return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
  

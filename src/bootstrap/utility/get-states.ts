@@ -57,7 +57,7 @@ export const GetStates = async (id:any) => {
         } 
         catch (error:any) {
             console.log("Engine failed to Get states: "+ error.message);
-            Logger('engine', "Failed execution: failed to Get states: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to Get states: "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
                 msg: GetStatusResponse("internal_server_err").msg,

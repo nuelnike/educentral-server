@@ -55,15 +55,40 @@ module.exports = (router:any) => {
               }
               else if (account.status_id === StatusCode.active){
 
-                let token:string = GenerateToken();
+                let token:string = await GenerateToken();
                 let session:any = { token, account_id: account.id, status_id: StatusCode.online };
                 
                 try{ 
                   let save_session:any = await SaveAccountSession(session);
                   if(save_session?.success)
                   {
-                    delete account["password"]; // remove password from object data.
-                    account.token = token;
+                    let data = { 
+                      id: account.id, 
+                      status_id: account.status_id, 
+                      city_id: account.city_id, 
+                      state_id: account.state_id,
+                      country_id: account.country_id,
+                      username: account.username,
+                      fullname: account.fullname,
+                      acct_typ: account.acct_typ,
+                      email: account.email,
+                      phone: account.phone,
+                      about: account.about,
+                      address: account.address,
+                      city: account.city,
+                      country: account.country,
+                      created_at: account.created_at,
+                      dob: account.dob,
+                      gender: account.gender,
+                      intro_video: account.intro_video,
+                      photo: account.photo,
+                      professional: account.professional,
+                      ratings: account.ratings,
+                      school: account.school,
+                      status: account.status,
+                      updated_at: account.updated_at,
+                      token
+                    }
 
                     let MailPayload:any = {
                       name: account.fullname,
@@ -72,13 +97,13 @@ module.exports = (router:any) => {
  
                     try{
                       
-                      SendMail('login', MailPayload, account.email) 
+                      SendMail('login', MailPayload, account.email);
 
                       return  res.json({ // Return accountonse to front end
                                 success: true, 
                                 code: GetStatusResponse("success").code,
                                 msg: "welcome, " + account.username,
-                                data: Encrypt(account)
+                                data: Encrypt(data)
                               }); 
                     }
                     catch (err:any){

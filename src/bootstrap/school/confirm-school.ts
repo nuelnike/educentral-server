@@ -75,7 +75,7 @@ export const ConfirmSchool = async (typ:string = 'id', ref:string) => {
 
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to confirm school: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to confirm school: "+ error.message); // log error message to .log file 
             return { 
                 code: GetStatusResponse("internal_server_err").code, 
                 success: false,

@@ -51,7 +51,7 @@ export const DeleteListing = async (id:number) => {
             }
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to delete listing : "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to delete listing : "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
                 code: GetStatusResponse("internal_server_err").code, 

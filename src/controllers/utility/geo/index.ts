@@ -17,7 +17,7 @@ module.exports = (router:any) => {
         return res.json(result);
       }
       catch (err:any){
-        Logger('utility', `Failed to fetch countires: ${err.message}`);
+        Logger('error', `Failed to fetch countires: ${err.message}`);
         return  res.json({
                   success: false,
                   code: GetStatusResponse("internal_server_err").code,
@@ -30,7 +30,7 @@ module.exports = (router:any) => {
   //GET ALL COUNTRY DATA
   router.get('/country-states/:id', (req:Request, res:Response) => {  
 
-    const id:string = req.params.id; // Parse and decrypt id  
+    const id:string = req.params.id; // Parse and decrypt id 
 
     (async () => {
       try{
@@ -38,7 +38,7 @@ module.exports = (router:any) => {
         return res.json(result);
       }
       catch (err:any){
-        Logger('utility', `Failed to fetch countires: ${err.message}`);
+        Logger('error', `Failed to fetch countires: ${err.message}`);
         return  res.json({
                   success: false,
                   code: GetStatusResponse("internal_server_err").code,
@@ -60,7 +60,7 @@ module.exports = (router:any) => {
         return res.json(result);
       }
       catch (err:any){
-        Logger('utility', `Failed to fetch cities in a state: ${err.message}`);
+        Logger('error', `Failed to fetch cities in a state: ${err.message}`);
         return  res.json({
                   success: false,
                   code: GetStatusResponse("internal_server_err").code,

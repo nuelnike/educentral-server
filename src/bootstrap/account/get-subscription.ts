@@ -2,7 +2,7 @@
 
 export const GetSubscription = async (id:any) => { 
 
-    const { Subscription, Account, Payment, Package } = require("../../core/database/model-listings"); // import DataHive model selector
+    const { Subscription, Account, Payment, Package, Status } = require("../../core/database/model-listings"); // import DataHive model selector
     const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
     const { Logger } = require("../../log"); // import logger function
     const { IfEmpty } = require("../../helpers"); // import IfEmpty function 
@@ -77,7 +77,7 @@ export const GetSubscription = async (id:any) => {
         } 
         catch (error:any) {
             console.log("Engine failed to fetch subscription: "+ error.message);
-            Logger('engine', "Failed execution: failed to Get subscription: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to Get subscription: "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
                 code: GetStatusResponse("internal_server_err").code, 

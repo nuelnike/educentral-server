@@ -7,7 +7,7 @@ export const CrashHandler = (req:any, next:any):any => {
     let res:any = req.res;
     if(!IfEmpty(req))
     { 
-        Logger('exceptions', ip+" tried to access "+req.path+" endpoint that caused unexpected server crash.");
+        Logger('error', ip+" tried to access "+req.path+" endpoint that caused unexpected server crash.");
         return  res.json({ 
                     success: false, 
                     code: GetStatusResponse("internal_server_err").code, 

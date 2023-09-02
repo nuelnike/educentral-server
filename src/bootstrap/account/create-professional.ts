@@ -42,7 +42,7 @@ export const CreateProfessional = async (payload:any) => {
             } 
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to create new professional: "+ error.message); // log error message to .log file 
+                Logger('error', "Failed execution: failed to create new professional: "+ error.message); // log error message to .log file 
                 
                 return { 
                     success: false, 

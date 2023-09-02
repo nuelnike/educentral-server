@@ -40,7 +40,7 @@ export const AddListing = async (payload:any) => {
             } 
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to create new listing: "+ error.message); // log error message to .log file 
+                Logger('error', "Failed execution: failed to create new listing: "+ error.message); // log error message to .log file 
                 
                 return { 
                     success: false, 

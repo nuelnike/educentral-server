@@ -42,7 +42,7 @@ export const GetAccounts = async () => {
         } 
         catch (error:any) {
             console.log("Engine failed to Get accounts: "+ error.message);
-            Logger('engine', "Failed execution: failed to Get accounts: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to Get accounts: "+ error.message); // log error message to .log file 
             data = { success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
  

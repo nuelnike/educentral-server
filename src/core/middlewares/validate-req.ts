@@ -13,12 +13,11 @@ export const ValidateSession = (req: Request, res: Response, next:NextFunction) 
     auth = Decrypt(auth);
     (async () => {
         try {
-
             let result:any = await ConfirmAccountSession(auth.id, auth.token); // check account session
             if(result.success) return next();
             else
             {
-                Logger('engine', 'Unauthorized access: account tried accessing server using invalid auth data');
+                Logger('error', 'Unauthorized access: account tried accessing server using invalid auth data');
                 return  res.json({
                             success: false,
                             code: GetStatusResponse("unauthorized").code,
@@ -28,7 +27,7 @@ export const ValidateSession = (req: Request, res: Response, next:NextFunction) 
             }
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to validate request: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to validate request: "+ error.message); // log error message to .log file 
             return  res.json({ 
                         success: false,
                         code: GetStatusResponse("internal_server_err").code, 

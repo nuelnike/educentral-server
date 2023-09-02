@@ -22,7 +22,7 @@ export const GetGallery = async (id:string) => {
 
     } 
     catch (error:any) {
-        Logger('engine', "Failed execution: failed to fetch account galleries: "+ error.message);
+        Logger('error', "Failed execution: failed to fetch account galleries: "+ error.message);
         return  { 
                     code: GetStatusResponse("internal_server_err").code, 
                     success: false, 

@@ -15,7 +15,7 @@ module.exports = (router:any) => {
       }
       catch (err:any)
       {
-        Logger('utility', `Failed to fetch categories: ${err.message}`);
+        Logger('error', `Failed to fetch categories: ${err.message}`);
         return  res.json({
                   success: false,
                   code: GetStatusResponse("internal_server_err").code,

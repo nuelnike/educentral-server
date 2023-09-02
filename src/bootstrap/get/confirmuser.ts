@@ -52,7 +52,7 @@ export const ConfirmAccount = async (typ:string, ref:string) => {
 
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to confirm account: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to confirm account: "+ error.message); // log error message to .log file 
             return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
  

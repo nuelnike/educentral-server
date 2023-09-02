@@ -21,7 +21,7 @@ export const GetSchoolCategories = async () => {
                 success: true, 
                 msg: GetStatusResponse("success").msg,
                 code: GetStatusResponse("success").code, 
-                data: Decrypt(cache_categories) 
+                data: cache_categories
             } // return resource
         }
         else return await DBOps();
@@ -58,7 +58,7 @@ export const GetSchoolCategories = async () => {
         } 
         catch (error:any) {
             console.log("Engine failed to Get categories: "+ error.message);
-            Logger('engine', "Failed execution: failed to fetched categories: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to fetched categories: "+ error.message); // log error message to .log file 
             return { 
                 success: false,
                 msg: GetStatusResponse("internal_server_err").msg,

@@ -33,7 +33,7 @@ export const GetMessageTrail = async (id:string) => {
 
     } 
     catch (error:any) {
-        Logger('engine', "Failed execution: failed to fetch account messages: "+ error.message);
+        Logger('error', "Failed execution: failed to fetch account messages: "+ error.message);
         return  { 
                     code: GetStatusResponse("internal_server_err").code, 
                     success: false, 

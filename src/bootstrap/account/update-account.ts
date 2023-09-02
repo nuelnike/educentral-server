@@ -39,7 +39,7 @@ export const UpdateAccount = async (payload:any) => {
             }
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to update account: "+ error.message); // log error message to .log file 
+                Logger('error', "Failed execution: failed to update account: "+ error.message); // log error message to .log file 
                 
                 return { 
                     success: false, 
@@ -91,7 +91,7 @@ export const UpdateAccountEmail = async (payload:any) => {
             } 
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to update account email: "+ error.message); // log error message to .log file 
+                Logger('error', "Failed execution: failed to update account email: "+ error.message); // log error message to .log file 
                 
                 return {
                     success: false, 
@@ -136,7 +136,7 @@ export const UpdateAccountPassword = async (payload:any) => {
             } 
             catch (error:any) {
 
-                Logger('engine', "Failed execution: failed to update account password: "+ error.message); // log error message to .log file 
+                Logger('error', "Failed execution: failed to update account password: "+ error.message); // log error message to .log file 
                 
                 return { 
                     success: false, 

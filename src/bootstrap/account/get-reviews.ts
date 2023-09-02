@@ -20,7 +20,7 @@ export const GetReviews = async (id:any) => {
 
     } 
     catch (error:any) {
-        Logger('engine', "Failed execution: failed to fetch account reviews: "+ error.message);
+        Logger('error', "Failed execution: failed to fetch account reviews: "+ error.message);
         return  { 
                     code: GetStatusResponse("internal_server_err").code, 
                     success: false, 

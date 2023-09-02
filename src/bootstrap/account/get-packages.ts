@@ -51,7 +51,7 @@ export const GetPackages = async () => {
         } 
         catch (error:any) {
             console.log("Engine failed to fetch packages: "+ error.message);
-            Logger('engine', "Failed execution: failed to Get packages: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to Get packages: "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
                 code: GetStatusResponse("internal_server_err").code, 

@@ -91,7 +91,7 @@ export const GeneralSearch = async (keyword:any) => {
 
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to fetch schools: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to fetch schools: "+ error.message); // log error message to .log file 
             return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
     };

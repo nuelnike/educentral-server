@@ -60,7 +60,7 @@ export const GetCategories = async () => {
         } 
         catch (error:any) {
             console.log("Engine failed to Get categories: "+ error.message);
-            Logger('engine', "Failed execution: failed to Get categories: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to Get categories: "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
                 code: GetStatusResponse("internal_server_err").code,

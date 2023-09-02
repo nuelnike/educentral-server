@@ -63,10 +63,10 @@ export const GetCountryStates = async (ref:string) => {
 
         } 
         catch (error:any) {
-            Logger('engine', "Failed execution: failed to country states: "+ error.message); // log error message to .log file 
+            Logger('error', "Failed execution: failed to country states: "+ error.message); // log error message to .log file 
             return { 
                 success: false, 
-                code: GetStatusResponse("success").code,  
+                code: GetStatusResponse("internal_server_err").code,  
                 msg: GetStatusResponse("internal_server_err").msg,
                 data: []
             }; // return a 500 response to requester;
