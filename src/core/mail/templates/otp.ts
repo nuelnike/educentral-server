@@ -153,20 +153,14 @@ export const Template = (payload:any) => {
                         
                                                                 </td>
                                                             </tr>
-
-                         
-                                                            <tr>
-                                                                <td style="font-size:0px;padding:5px 10px;word-break:break-word;">
-                                                                    <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:20px;font-weight:bold;line-height:1;color:#555;">
-                                                                        Successfull Login!
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-    
+ 
                                                             <tr>
                                                                 <td style="font-size:0px;padding:10px 10px;word-break:break-word;">
                                                                     <div style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;color:#555;">
-                                                                        Dear ${payload.name}, We noticed you recently logged into your ${ company } account.
+                                                                        Dear ${payload.name}, We noticed you recently requested for an OTP.
+                                                                        <br/>
+                                                                        OTP: ${payload.otp} <br/>
+                                                                        expires in: ${ payload.duration }
                                                                     </div> 
                                                                 </td>
                                                             </tr>  

@@ -103,7 +103,7 @@ export const Minutes = ():number => {
  
 export const FutureDateMilliSecs = (date:any, days:number) => date.setDate(date.getDate() + Number(days)); 
 
-export const GetMilliSec = (typ:string, x:number):number => {
+export const GetMilliSec = (typ:string = "mins", x:number = 5):number => {
     switch (typ) {
         case "secs":
         return x * 1000;

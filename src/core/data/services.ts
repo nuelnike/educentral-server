@@ -1,4 +1,4 @@
-export const MainServiceLive:boolean = false;
+export const MainServiceIsLive:boolean = false;
 export const AuthServiceLive:boolean = false;
 export const GOLangLive:boolean = false;
 export const UtilityServiceLive:boolean = false;
@@ -18,12 +18,12 @@ interface ServicesDataModel  {
 const services:Array<ServicesDataModel> =  [ 
     {
         instance: 1,
-        status: MainServiceLive,
+        status: MainServiceIsLive,
         version: 1,
         name: "main",
         app_id: "EduCentral",
-        ip: !MainServiceLive ? `http://localhost` : `143.198.138.103`,
-        port_range: 8000
+        ip: MainServiceIsLive ? `143.198.138.103` : `http://localhost`,
+        port_range: MainServiceIsLive ? 8000 : 7000
     },
     {
         instance: 1,

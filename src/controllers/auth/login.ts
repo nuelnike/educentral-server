@@ -91,7 +91,7 @@ module.exports = (router:any) => {
                     }
 
                     let MailPayload:any = {
-                      name: account.fullname,
+                      payload: { name: account.fullname },
                       subject: 'Login alert!'
                     }
  

@@ -123,7 +123,7 @@ module.exports = (router:any) => {
                             
                         }
                         catch (err:any){
-                            Logger('auth', `Failed to save new account : ${err.message}`);
+                            Logger('error', `Failed to save new account : ${err.message}`);
                             return  res.json({
                                         success: false,
                                         code: GetStatusResponse("internal_server_err").code,
@@ -133,7 +133,7 @@ module.exports = (router:any) => {
                     });
                 }
                 catch (err:any){
-                    Logger('auth', `Failed to save new account: ${err.message}`);
+                    Logger('error', `Failed to save new account: ${err.message}`);
                     return  res.json({
                                 success: false,
                                 code: GetStatusResponse("internal_server_err").code,
@@ -163,7 +163,7 @@ module.exports = (router:any) => {
  
         }
         catch (err:any){ 
-            Logger('auth', `Failed to register a account: ${err.message}`);
+            Logger('error', `Failed to register a account: ${err.message}`);
             return  res.json({
                     success: false,
                     code: GetStatusResponse("internal_server_err").code,

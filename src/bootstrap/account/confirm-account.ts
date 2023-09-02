@@ -47,7 +47,7 @@ export const ConfirmAccount = async (typ:string, ref:string) => {
 
             if(!IfEmpty(account)) // if data is not empty
             {
-                Save("account_"+account.id, Encrypt(account), null, false); // cache session for 24 hours
+                Save("account_"+account.id, Encrypt(account), 0, false); // cache session for 24 hours
                 cache_account = await Get("account_"+account.id); // get cache accounts from redis
                 cache_account = Decrypt(cache_account);
                 return { code: GetStatusResponse("success").code, success: true, msg: GetStatusResponse("success").msg, data: null } // return response to requester

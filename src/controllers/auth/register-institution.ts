@@ -114,7 +114,7 @@ module.exports = (router:any) => {
                                             })();
                                         }
                                         catch (err:any){
-                                            Logger('auth', `Failed to save account session: ${err.message}`);
+                                            Logger('error', `Failed to save account session: ${err.message}`);
                                             return  res.json({
                                                         success: true,
                                                         code: GetStatusResponse("success").code,
@@ -130,7 +130,7 @@ module.exports = (router:any) => {
                             
                         }
                         catch (err:any){
-                            Logger('auth', `Failed to save new school : ${err.message}`);
+                            Logger('error', `Failed to save new school : ${err.message}`);
                             return  res.json({
                                         success: false,
                                         code: GetStatusResponse("internal_server_err").code,
@@ -140,7 +140,7 @@ module.exports = (router:any) => {
                     });
                 }
                 catch (err:any){
-                    Logger('auth', `Failed to save new school: ${err.message}`);
+                    Logger('error', `Failed to save new school: ${err.message}`);
                     return  res.json({
                                 success: false,
                                 code: GetStatusResponse("internal_server_err").code,
@@ -179,7 +179,7 @@ module.exports = (router:any) => {
  
         }
         catch (err:any){
-            Logger('auth', `Failed to register a new school: ${err.message}`);
+            Logger('error', `Failed to register a new school: ${err.message}`);
             return  res.json({
                     success: false,
                     code: GetStatusResponse("internal_server_err").code,

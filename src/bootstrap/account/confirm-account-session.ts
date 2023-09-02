@@ -42,7 +42,7 @@ export const ConfirmAccountSession = async (id:string, token:string) => {
             {
                 cache_account.session =  session.token;
 
-                Save("account_"+id, Encrypt(cache_account), null, false); // cache session for 24 hours
+                Save("account_"+id, Encrypt(cache_account), 0, false); // cache session for 24 hours
                 return { code: GetStatusResponse("success").code, success: true, msg: GetStatusResponse("success").msg, data: true } // return response to requester
             }
 
