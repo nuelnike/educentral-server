@@ -1,4 +1,4 @@
-export const MainServiceIsLive:boolean = false;
+export const MainServiceIsLive:boolean = true;
 export const AuthServiceLive:boolean = false;
 export const GOLangLive:boolean = false;
 export const UtilityServiceLive:boolean = false;
