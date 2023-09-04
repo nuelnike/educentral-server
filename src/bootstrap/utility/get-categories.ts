@@ -12,7 +12,7 @@ export const GetCategories = async () => {
     // Check redis for resource requested
     const RedisGet = async () => {
         
-        cache_categories = await Get("categories"); // get cache categories from redis
+        cache_categories = JSON.parse(await Get("categories")); // get cache categories from redis
     
         if(!IfEmpty(cache_categories)) // if cached categories is not empty
         {

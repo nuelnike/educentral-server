@@ -2,7 +2,6 @@ export const GetSkills = async () => {
 
     const { Skill } = require("../../core/database/model-listings"); // import DataHive model selector
     const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
-    const { Encrypt } = require("../../core/security"); // import Redis Get & Save functions
     const { Logger } = require("../../log"); // import logger function
     const { IfEmpty } = require("../../helpers"); // import IfEmpty function
     const { GetStatusResponse } = require("../../core/data/status-response"); // import custom status response data
@@ -12,11 +11,10 @@ export const GetSkills = async () => {
     // Check redis for resource requested
     const RedisGet = async () => {
         
-        cache_skills = await Get("skills"); // get cache skills from redis
+        cache_skills = JSON.parse(await Get("skills")); // get cache skills from redis
     
         if(!IfEmpty(cache_skills)) // if cached skills is not empty
         {
-            console.log("skills already cached.");
             return { 
                 success: true, 
                 code: GetStatusResponse("success").code, 
