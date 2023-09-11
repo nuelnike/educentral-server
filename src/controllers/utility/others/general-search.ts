@@ -1,8 +1,7 @@
 import type {Request, Response} from 'express';
-const { Logger } = require("../../log");
-const { GetStatusResponse } = require("../../core/data/status-response");
-const { Decrypt } = require("../../core/security");
-const { GeneralSearch } = require("../../bootstrap/account/general-search");
+import {Logger} from "../../../log";
+const { GetStatusResponse } = require("../../../core/data/status-response");
+const { GeneralSearch } = require("../../../bootstrap/account/general-search");
 // const { ValidateSession } = require(`../../core/middlewares/validate-req`);
 
 module.exports = (router:any) => {  
@@ -18,7 +17,7 @@ module.exports = (router:any) => {
             return res.json(result);
         }
         catch (err:any){
-            Logger('account', `Failed to search: ${err.message}`);
+            Logger('error', `Failed to search: ${err.message}`);
             return  res.json({
                         success: false,
                         code: GetStatusResponse("internal_server_err").code,

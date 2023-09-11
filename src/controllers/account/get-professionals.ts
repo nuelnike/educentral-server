@@ -16,7 +16,7 @@ module.exports = (router:any) => {
             return res.json(await GetProfessionals());
         }
         catch (err:any){
-            Logger('account', `Failed to fetch professionals: ${err.message}`);
+            Logger('error', `Failed to fetch professionals: ${err.message}`);
             return  res.json({
                         success: false,
                         code: GetStatusResponse("internal_server_err").code,
@@ -35,7 +35,7 @@ module.exports = (router:any) => {
             if(typ == "search") return res.json(await SearchProfessionals(keyword));
         }
         catch (err:any){
-            Logger('account', `Failed to fetch professionals: ${err.message}`);
+            Logger('error', `Failed to fetch professionals: ${err.message}`);
             return  res.json({
                         success: false,
                         code: GetStatusResponse("internal_server_err").code,

@@ -18,7 +18,7 @@ module.exports = (router:any) => {
             return res.json(result);
         }
         catch (err:any){
-            Logger('account', `Failed to fetch reviews: ${err.message}`);
+            Logger('error', `Failed to fetch reviews: ${err.message}`);
             return  res.json({
                         success: false,
                         data: err.message,

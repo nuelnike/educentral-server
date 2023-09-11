@@ -58,7 +58,7 @@ module.exports = (router:any) => {
                                         result = await UpdateSchool(payload.school);
                                     }
                                     catch (err:any){
-                                        Logger('account', `Failed to update school data: ${err.message}`);
+                                        Logger('error', `Failed to update school data: ${err.message}`);
                                         return  res.json({
                                                     success: false,
                                                     code: GetStatusResponse("internal_server_err").code,
@@ -71,7 +71,7 @@ module.exports = (router:any) => {
                             return res.json(result);
                         }
                         catch (err:any){
-                            Logger('account', `Failed to update account data: ${err.message}`);
+                            Logger('error', `Failed to update account data: ${err.message}`);
                             return  res.json({
                                         success: false,
                                         code: GetStatusResponse("internal_server_err").code,
@@ -81,7 +81,7 @@ module.exports = (router:any) => {
                     })();
                 }
                 catch (err:any){
-                    Logger('account', `Failed to update account: ${err.message}`);
+                    Logger('error', `Failed to update account: ${err.message}`);
                     return  res.json({
                                 success: false,
                                 code: GetStatusResponse("internal_server_err").code,
@@ -125,7 +125,7 @@ module.exports = (router:any) => {
                                     return res.json(result);
                                 }
                                 catch (err:any){
-                                    Logger('account', `Failed to update account email: ${err.message}`);
+                                    Logger('error', `Failed to update account email: ${err.message}`);
                                     return  res.json({
                                                 success: false,
                                                 code: GetStatusResponse("internal_server_err").code,
@@ -155,7 +155,7 @@ module.exports = (router:any) => {
 
                 }
                 catch (err:any){
-                    Logger('account', `Failed to update account email: ${err.message}`);
+                    Logger('error', `Failed to update account email: ${err.message}`);
                     return  res.json({
                                 success: false,
                                 code: GetStatusResponse("internal_server_err").code,
@@ -205,7 +205,7 @@ module.exports = (router:any) => {
                                                 return res.json(result);
                                             }
                                             catch (err:any){
-                                                Logger('account', `Failed to update account password: ${err.message}`);
+                                                Logger('error', `Failed to update account password: ${err.message}`);
                                                 return  res.json({
                                                             success: false,
                                                             code: GetStatusResponse("internal_server_err").code,
@@ -216,7 +216,7 @@ module.exports = (router:any) => {
                                     })
                                 }
                                 catch (err:any){
-                                    Logger('account', `Failed to update account password: ${err.message}`);
+                                    Logger('error', `Failed to update account password: ${err.message}`);
                                     return  res.json({
                                                 success: false,
                                                 code: GetStatusResponse("internal_server_err").code,
@@ -245,7 +245,7 @@ module.exports = (router:any) => {
 
                 }
                 catch (err:any){
-                    Logger('account', `Failed to update account password: ${err.message}`);
+                    Logger('error', `Failed to update account password: ${err.message}`);
                     return  res.json({
                                 success: false,
                                 code: GetStatusResponse("internal_server_err").code,

@@ -16,7 +16,7 @@ module.exports = (router:any) => {
             return res.json(result);
         }
         catch (err:any){
-            Logger('account', `Failed to fetch message trails: ${err.message}`);
+            Logger('error', `Failed to fetch message trails: ${err.message}`);
             return  res.json({
                         success: false,
                         code: GetStatusResponse("internal_server_err").code,

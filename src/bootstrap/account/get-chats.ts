@@ -1,56 +1,40 @@
-export const GetChats = async (payload:any) => {
+export const GetChats = async (account_id:string, ref_id:string) => {
 
     const { Message, Account, MessageTrail } = require("../../core/database/model-listings");
     const { Logger } = require("../../log");
-    const { IfEmpty } = require("../../helpers");
     const { Encrypt } = require("../../core/security");
     const { GetStatusResponse } = require("../../core/data/status-response");
-    const { Op } = require("sequelize"); // import operation function from sequalize
      
     try {
-        let messages:any = [];
-        if(payload.typ == "accounts")
-        {
-            messages =  await Message.findAll({
-                where: { [Op.or]: [{account_id: payload.id}, {sender: payload.id}]},
-                include:  [{
-                    model: Account,
-                    attributes: ["fullname","username","photo"],
-                    required: false,
-                    as: "from"
-                },
-                {
-                    model: Account,
-                    attributes: ["fullname","username","photo"],
-                    required: false,
-                    as: "to"
-                }]
-            });
-        }
-        else
-        {
-            messages =  await Message.findOne({
-                where: { listing_id: payload.id },
-                include:  [{
-                    model: Account,
-                    attributes: ["fullname","username","photo"],
-                    required: false,
-                    as: "from"
-                },
-                {
-                    model: Account,
-                    attributes: ["fullname","username","photo"],
-                    required: false,
-                    as: "to"
-                },
-                {
-                    model: MessageTrail,
-                    required: false
-                }
-            ]
-            });
-
-        }
+        let messages:any = []; 
+        messages =  await Message.findOne({
+                    where: { sender: account_id, ref_id },
+                    order: [["created_at", "ASC"]],
+                    include:  [{
+                        model: Account,
+                        attributes: ["fullname","username","photo"],
+                        required: false,
+                        as: "from"
+                    },
+                    {
+                        model: Account,
+                        attributes: ["fullname","username","photo"],
+                        required: false,
+                        as: "to"
+                    },
+                    {
+                        model: MessageTrail,
+                        order: [["created_at", "desc"]],
+                        separate: true,
+                        required: false,
+                        include:  [{
+                            model: Account,
+                            attributes: ["fullname","username","photo"],
+                            required: false
+                        }]
+                    }
+                ]
+        });
 
         return { 
                     success: true,

@@ -32,7 +32,7 @@ module.exports = (router:any) => {
                 return res.json(result);
             }
             catch (err:any){
-                Logger('account', `Failed to save subscription: ${err.message}`);
+                Logger('error', `Failed to save subscription: ${err.message}`);
                 return  res.json({
                             success: false,
                             data: err.message,
