@@ -4,7 +4,7 @@ const { IfEmpty, ValidEmailAddress } = require("../../helpers");
 const { Logger } = require("../../log");
 const { GetStatusResponse } = require("../../core/data/status-response");
 const { Decrypt } = require("../../core/security");
-const { UpdateAccount, UpdateAccountPassword, UpdateAccountEmail } = require("../../bootstrap/account/update-account");
+import { UpdateAccount, UpdateAccountPassword, UpdateAccountEmail } from "../../bootstrap/account/update-account";
 const { UpdateSchool } = require("../../bootstrap/school/update-school");
 const { GetAccount } = require("../../bootstrap/account/get-account");
 const { ValidateSession } = require(`../../core/middlewares/validate-req`);
@@ -114,10 +114,11 @@ module.exports = (router:any) => {
                 try{ 
 
                     let account:any = await GetAccount("id", payload.id);
+                    account = account.data;
                     if(account.code != GetStatusResponse("not_found").code)
                     {
                         
-                        if (bcrypt.compareSync(payload.password, account.data.password))
+                        if (bcrypt.compareSync(payload.password, account.password))
                         {
                             (async () => {
                                 try{
@@ -170,9 +171,11 @@ module.exports = (router:any) => {
     //GET ALL COUNTRY DATA
     router.post('/update-password', ValidateSession, (req:Request, res:Response) => {  
 
-        let payload:any = Decrypt(req.body.payload);
+        const { id, password }:any = Decrypt(req.body.payload);
+        let resp:any = {} as any;
+        let account:any = {} as any;
 
-        if ( IfEmpty(payload.id) || IfEmpty(payload.password.old) || IfEmpty(payload.password.new) || IfEmpty(payload.password.confirm) || (payload.password.new != payload.password.confirm))
+        if ( IfEmpty(id) || IfEmpty(password.old) || IfEmpty(password.new) || IfEmpty(password.confirm) || (password.new != password.confirm))
         {
             return  res.json({
                         success: false, 
@@ -188,31 +191,33 @@ module.exports = (router:any) => {
             (async () => {
                 try{ 
 
-                    let account:any = await GetAccount("id", payload.id);
+                    resp = await GetAccount("id", id);
 
-                    if(account.code == GetStatusResponse("success").code)
+                    if(resp.code == GetStatusResponse("success").code)
                     {
                         
-                        if (bcrypt.compareSync(payload.password.old, account.data.password))
+                        account = resp.data;
+
+                        if (bcrypt.compareSync(password.old, account.password))
                         {
                             (async () => {
                                 try{
-                                    bcrypt.hash(payload.password.new, 10, (err:any, hash:any) => {
+
+                                    bcrypt.hash(password.new, 10, (err:any, hash:any) => {
                                         (async () => {
-                                            try{
-                                                payload.password = hash;
-                                                let result:any = await UpdateAccountPassword(payload);
-                                                return res.json(result);
+                                            try{ 
+                                                return res.json(await UpdateAccountPassword(id, hash));
                                             }
                                             catch (err:any){
                                                 Logger('error', `Failed to update account password: ${err.message}`);
                                                 return  res.json({
                                                             success: false,
+                                                            data: null,
                                                             code: GetStatusResponse("internal_server_err").code,
                                                             msg: GetStatusResponse("internal_server_err").msg
                                                         });
                                             }
-                                        });
+                                        })();
                                     })
                                 }
                                 catch (err:any){
@@ -233,7 +238,7 @@ module.exports = (router:any) => {
                                   });
                         }
                     }
-                    else if(account.code != GetStatusResponse("not_found").code)
+                    else if(resp.code != GetStatusResponse("not_found").code)
                     {
                         return  res.json({
                                     success: false,
@@ -241,7 +246,7 @@ module.exports = (router:any) => {
                                     msg: "username already exist, try again."
                                 })
                     }
-                    else if(!account.success) return res.json(account);
+                    else if(!resp.success) return res.json(resp);
 
                 }
                 catch (err:any){

@@ -11,7 +11,7 @@ const { Save, Get, Remove } = require("../../libs/redis"); // import Redis Get &
 export const UpdateAccount = async (payload:any) => { 
 
     // Query the database to get resource
-    const DBSave = async () => {
+    const DPOps = async () => {
 
         if(IfEmpty(payload))    return { 
                                     code: GetStatusResponse("bad_request").code, 
@@ -53,14 +53,14 @@ export const UpdateAccount = async (payload:any) => {
  
     }
 
-    return await DBSave(); // Init redis function 
+    return await DPOps(); // Init redis function 
 
 }
 
 export const UpdateAccountEmail = async (payload:any) => { 
 
     // Query the database to get resource
-    const DBSave = async () => {
+    const DPOps = async () => {
 
         if(IfEmpty(payload)) return { 
                                         success: false, 
@@ -86,7 +86,7 @@ export const UpdateAccountEmail = async (payload:any) => {
                             success: true,
                             code: GetStatusResponse("success").code,
                             msg: GetStatusResponse("success").msg,
-                            data: account
+                            data: null
                         }
             } 
             catch (error:any) {
@@ -105,28 +105,29 @@ export const UpdateAccountEmail = async (payload:any) => {
  
     }
 
-    return await DBSave(); // Init redis function 
+    return await DPOps(); // Init redis function 
 
 }
 
-export const UpdateAccountPassword = async (payload:any) => {  
+export const UpdateAccountPassword = async (id:string, password:string) => {  
 
     // Query the database to get resource
-    const DBSave = async () => {
+    const DPOps:any = async () => {
 
-        if(IfEmpty(payload))    return { 
-                                    success: false, 
-                                    code: GetStatusResponse("bad_request").code, 
-                                    msg: GetStatusResponse("bad_request").msg,
-                                    data: null 
-                                } // return resource
+
+        if(IfEmpty(id) || IfEmpty(password))    return { 
+                                                    success: false, 
+                                                    code: GetStatusResponse("bad_request").code, 
+                                                    msg: GetStatusResponse("bad_request").msg,
+                                                    data: null 
+                                                } // return resource
         
         else
         {
+            
             try {
 
-                let account:any = await Account.update({password: payload.password}, { where: {id: payload.id} });
-
+                await Account.update({ password }, { where: { id } });
                 return  {
                             success: true,
                             code: GetStatusResponse("success").code,
@@ -148,8 +149,8 @@ export const UpdateAccountPassword = async (payload:any) => {
             }
         }
  
-    }
+    };
 
-    return await DBSave(); // Init redis function 
+    return await DPOps();
 
 }

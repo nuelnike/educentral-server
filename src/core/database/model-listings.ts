@@ -20,6 +20,7 @@ const SchoolCategory = SelectModel("school_category");
 const Payment = SelectModel("payment");
 const Subscription = SelectModel("subscription");
 const Package = SelectModel("package");
+const Package_tiers = SelectModel("package_tiers");
 
 const Professional = SelectModel("professional");
 const Skill = SelectModel("skill");
@@ -64,6 +65,10 @@ Subscription.belongsTo(Status, { foreignKey: "status_id" });
 
 Package.hasMany(Subscription, { foreignKey: "package_id" });
 Subscription.belongsTo(Package, { foreignKey: "package_id" });
+
+Package.hasMany(Package_tiers, { foreignKey: "package_id" });
+Package_tiers.belongsTo(Package, { foreignKey: "package_id" });
+
 
 //USER MODEL ASSOCIATION
 Account.hasMany(Session, { foreignKey: "account_id" });
@@ -136,6 +141,7 @@ module.exports = {
 	SchoolCategory,
 	Payment,
 	Subscription,
+	Package_tiers,
 	Package,
 	ProfessionalSkill,
 	Professional,

@@ -100,8 +100,10 @@ module.exports = (router:any) => {
   router.post("/reset-password", (req:Request, res:Response) => { 
  
     const { id, otp, password } = Decrypt(req.body.payload);
-    let account:any = {};
-    let check_otp:any;
+    let account:any = {} as any;
+    let resp:any = {} as any;
+    let hashed_password:string = "";
+    let check_otp:any = "" as any;
 
     if(IfEmpty(id) || IfEmpty(otp) || IfEmpty(password))
     {
@@ -119,13 +121,15 @@ module.exports = (router:any) => {
             check_otp = await Get("OTP_"+id); 
 
             if(check_otp == otp){
-                account = await GetAccount("id", id);
-                if(account?.success) { 
+                resp = await GetAccount("id", id);
+                if(resp?.success) { 
                     bcrypt.hash(password, 10, (err:any, hash:any) => { // ENCRYPT PASSWORD BEFORE ACCOUNT CREATION  
                         try {
+
+                            hashed_password = hash;
                             
                             (async () => { 
-                                return res.json(await UpdateAccountPassword({id, password: hash}));
+                                return res.json(await UpdateAccountPassword(id, hashed_password));
                             })();
                             
                         }

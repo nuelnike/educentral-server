@@ -1,6 +1,6 @@
 export const GetPackages = async () => { 
 
-    const { Package } = require("../../core/database/model-listings"); // import DataHive model selector
+    const { Package, Package_tiers } = require("../../core/database/model-listings"); // import DataHive model selector
     const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
     const { Logger } = require("../../log"); // import logger function
     const { IfEmpty } = require("../../helpers"); // import IfEmpty function
@@ -10,9 +10,7 @@ export const GetPackages = async () => {
     
     // Check redis for resource requested
     const RedisGet = async () => {
-        
-        console.log("control");
-
+         
         cache_packages = await Get("packages"); // get cache packages from redis
     
         if(!IfEmpty(cache_packages)) // if cached packages is not empty
@@ -34,17 +32,20 @@ export const GetPackages = async () => {
 
         try {
             
-            data = await Package.findAll();
-            if(!IfEmpty(data)) // if data is not empty
-            { 
-                Save("packages", data, null, false); // save new array to redis
-                console.log("packages fetched and cached successfully.");
-            }
+            data = await Package.findAll({
+                order: [["name", "ASC"]],
+                include: [
+                    {
+                        model: Package_tiers,
+                        required: false
+                    }]
+                });
+            if(!IfEmpty(data))  Save("packages", data, null, false); // save new array to redis
             return { 
                 success: true, 
                 code: GetStatusResponse("success").code, 
                 msg: GetStatusResponse("success").msg, 
-                data: data || []
+                data: data ?? []
             } // return a 404 response to requester
  
 

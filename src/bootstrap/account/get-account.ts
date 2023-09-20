@@ -106,7 +106,6 @@ export const GetAccount = async (typ:string, ref:string) => {
             if(!IfEmpty(account)) // if data is not empty
             {
                 let dd = await Save("account_"+account.id, Encrypt(account), 0, false); // cache session for 24 hours
-                console.log(dd);
                 return { 
                     success: true,
                     code: GetStatusResponse("success").code, 
@@ -115,12 +114,20 @@ export const GetAccount = async (typ:string, ref:string) => {
                 }
             }
 
-            else return { code: GetStatusResponse("not_found").code, success: false, msg: GetStatusResponse("not_found").msg, data: null } // return a 404 response to requester
+            else return { 
+                code: GetStatusResponse("not_found").code, 
+                success: false, msg: GetStatusResponse("not_found").msg, 
+                data: null 
+            } // return a 404 response to requester
 
         } 
         catch (error:any) {
             Logger('error', "Failed execution: failed to confirm account: "+ error.message); // log error message to .log file 
-            return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
+            return { 
+                code: GetStatusResponse("internal_server_err").code, 
+                success: false, 
+                msg: GetStatusResponse("internal_server_err").msg 
+            }; // return a 500 response to requester;
         }
  
     }
