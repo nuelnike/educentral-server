@@ -1,10 +1,11 @@
 
 import { Encrypt } from "../../core/security";
+import { StatusCode } from "../../core/data";
 import { Logger } from "../../log"; // import logger function
 import { IfEmpty } from "../../helpers"; // import IfEmpty function
 import { Save } from "../../libs/redis"; // import Redis Get & Save functions
 import { GetStatusResponse } from "../../core/data/status-response"; // import custom status response data
-const { Account, School, Professional, ProfessionalSkill, Skill, Status, SchoolCategory, Category, City, State, Country } = require("../../core/database/model-listings"); // import DataHive model selector
+const { Account, School, Subscription, Package_tier, Package, Professional, ProfessionalSkill, Skill, Status, SchoolCategory, Category, City, State, Country } = require("../../core/database/model-listings"); // import DataHive model selector
 
 export const GetAccount = async (typ:string, ref:string) => {
 
@@ -42,13 +43,13 @@ export const GetAccount = async (typ:string, ref:string) => {
     const DBOps = async () => {
         try {
 
-            let qry:any;
-            if (typ == "id") qry = {id: ref};
-            if (typ == "email") qry = {email: ref};
-            if (typ == "username") qry = {username: ref}; 
+            // let qry:any;
+            // if (typ == "id") qry = {id: ref};
+            // if (typ == "email") qry = {email: ref};
+            // if (typ == "username") qry = {username: ref}; 
             
             let account:any = await Account.findOne({ 
-                                                where: qry,
+                                                where: { [typ] : ref },
                                                 include: [
                                                     {
                                                         model: School,
@@ -84,6 +85,27 @@ export const GetAccount = async (typ:string, ref:string) => {
                                                         model: Status,
                                                         attributes: ["name"],
                                                         required: false
+                                                    },
+                                                    {
+                                                        model: Subscription,
+                                                        where: { status_id: StatusCode.active },
+                                                        attributes: ["payment_id", "package_id", "package_tier_id", "status_id", "expiry", "created_at"],
+                                                        required: false,
+                                                        include: [{
+                                                            model: Status,
+                                                            attributes: ["name"],
+                                                            required: false
+                                                        },
+                                                        {
+                                                            model: Package,
+                                                            attributes: ["name"],
+                                                            required: false
+                                                        },
+                                                        {
+                                                            model: Package_tier,
+                                                            attributes: ["name"],
+                                                            required: false
+                                                        }]
                                                     },
                                                     {
                                                         model: State,
@@ -126,7 +148,8 @@ export const GetAccount = async (typ:string, ref:string) => {
             return { 
                 code: GetStatusResponse("internal_server_err").code, 
                 success: false, 
-                msg: GetStatusResponse("internal_server_err").msg 
+                msg: GetStatusResponse("internal_server_err").msg,
+                data: null 
             }; // return a 500 response to requester;
         }
  

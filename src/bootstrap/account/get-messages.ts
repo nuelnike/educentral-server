@@ -1,4 +1,4 @@
-export const GetMessages = async (id:string) => {
+export const GetMessages = async (user_id:string, resource_id:string = "") => {
 
     const { Message, Account } = require("../../core/database/model-listings");
     const { Logger } = require("../../log");
@@ -7,10 +7,15 @@ export const GetMessages = async (id:string) => {
     const { GetStatusResponse } = require("../../core/data/status-response");
     const { Op } = require("sequelize"); // import operation function from sequalize
      
-    try {
+    try
+    {
 
-        let messages:any =  await Message.findAll({
-                                where: { [Op.or]: [{ref_id: id}, {sender: id}]},
+        let where_clause:any;
+        if (IfEmpty(resource_id)) where_clause = { [Op.or]: [{ref_id: user_id}, {sender: user_id}] };
+        else where_clause = {ref_id: resource_id}, {sender: user_id};
+
+        let messages:any =  await Message.findOne({
+                                where: where_clause,
                                 include:  [{
                                     model: Account,
                                     attributes: ["fullname","username","photo"],
@@ -25,18 +30,12 @@ export const GetMessages = async (id:string) => {
                                 }]
                             });
 
-        if(!IfEmpty(messages))  return { 
-                                    code: GetStatusResponse("success").code, 
-                                    success: true, 
-                                    msg: GetStatusResponse("success").msg, 
-                                    data: Encrypt(messages)
-                                }
-
-        else return { 
-                        code: GetStatusResponse("not_found").code, 
-                        success: false, msg: GetStatusResponse("not_found").msg, 
-                        data: null 
-                    }
+                            return { 
+                                code: GetStatusResponse("success").code, 
+                                success: true, 
+                                msg: GetStatusResponse("success").msg, 
+                                data: messages
+                            }
 
     } 
     catch (error:any) {

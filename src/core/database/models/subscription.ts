@@ -21,6 +21,14 @@ export const ModelBuilder = () => {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
+		package_tier_id: {
+			type: Sequelize.STRING,
+			allowNull: false,
+		},
+		expiry: {
+			type: Sequelize.DATE,
+			allowNull: false
+		},
 		created_at: {
 			type: Sequelize.DATE,
 			defaultValue: Sequelize.NOW

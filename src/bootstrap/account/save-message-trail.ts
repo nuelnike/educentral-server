@@ -20,11 +20,11 @@ export const SaveMessageTrail = async (payload:any) => {
             try {
     
                 await MessageTrail.create(payload);
-                return  { 
-                    code: GetStatusResponse("success").code, 
-                    success: false, 
+                return {
+                    success: true, 
                     data: null,
-                    msg: GetStatusResponse("success").msg 
+                    code: GetStatusResponse("success").code, 
+                    msg: GetStatusResponse("success").msg
                 }; // return a 500 response to requester;
                 
             } 

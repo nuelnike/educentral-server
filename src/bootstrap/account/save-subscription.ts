@@ -1,9 +1,9 @@
 import { GetAllSubscriptions } from "./get-all-subscriptions";
-const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
+import { Get, Save } from "../../libs/redis"; // import Redis Get & Save functions
 const { Payment, Subscription } = require("../../core/database/model-listings"); // import DataHive model selector
-const { Logger } = require("../../log"); // import logger function
-const { IfEmpty } = require("../../helpers"); // import IfEmpty function
-const { GetStatusResponse } = require("../../core/data/status-response"); // import custom status response data 
+import { Logger } from "../../log"; // import logger function
+import { IfEmpty } from "../../helpers"; // import IfEmpty function
+import { GetStatusResponse } from "../../core/data/status-response"; // import custom status response data 
 let payment:any = {} as any;
 let resp:any = null as any;
 let arr:Array<any> = [] as any;
@@ -24,19 +24,20 @@ export const SaveSubscription = async (payload:any) => {
         {
             try {
     
-                await Payment.create(payload, {returning: true}); 
-                let _payload:any = {
+                await Payment.create(payload, {returning: true});
+
+                await Subscription.create({
                     payment_id: payload.id,
                     account_id: payload.account_id,
                     package_id: payload.package_id,
+                    package_tier_id: payload.package_tier_id,
+                    expiry: payload.expiry,
                     status_id:  payload.status_id
-                }
-
-                await Subscription.create(_payload);
+                });
                 
                 resp = await GetAllSubscriptions();
 
-                Save("subscriptions", resp?.data || [], null, false); // save new array to redis
+                Save("subscriptions", resp?.data || [], 0, false); // save new array to redis
 
                 return  { 
                     code: GetStatusResponse("success").code, 

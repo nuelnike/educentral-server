@@ -14,7 +14,12 @@ export const SaveAccountSession = async (payload:any) => {
     // Query the database to get resource
     const DBSave = async () => {
 
-        if(IfEmpty(payload)) return { code: GetStatusResponse("bad_request").code, success: false, msg: GetStatusResponse("bad_request").msg  } // return resource
+        if(IfEmpty(payload)) return { 
+                                code: GetStatusResponse("bad_request").code, 
+                                success: false, 
+                                msg: GetStatusResponse("bad_request").msg,
+                                data: null 
+                            } // return resource
         
         else
         {
@@ -47,10 +52,10 @@ export const SaveAccountSession = async (payload:any) => {
                 Logger('error', "Failed execution: failed to save account session: "+ error.message); // log error message to .log file
 
                 return  { 
-                            code: GetStatusResponse("internal_server_err").code, 
                             success: false, 
-                            data:null,
-                            msg: GetStatusResponse("internal_server_err").msg 
+                            code: GetStatusResponse("internal_server_err").code, 
+                            msg: GetStatusResponse("internal_server_err").msg,
+                            data:null, 
                         }; // return a 500 response to requester;
             }
         }
@@ -68,7 +73,12 @@ export const SaveAccountSession = async (payload:any) => {
 
                 Save("account_"+cache_account.id, Encrypt(cache_account), null, false); // cache session for 24 hours
 
-                return { success: true, code: GetStatusResponse("success").code, msg: GetStatusResponse("success").msg, data: session } // return response to requester
+                return { 
+                    success: true, 
+                    code: GetStatusResponse("success").code, 
+                    msg: GetStatusResponse("success").msg, 
+                    data: session 
+                } // return response to requester
             }
 
             else    return { 
@@ -85,7 +95,12 @@ export const SaveAccountSession = async (payload:any) => {
 
             Logger('error', "Failed execution: failed to fetch account: "+ error.message); // log error message to .log file 
 
-            return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
+            return { 
+                code: GetStatusResponse("internal_server_err").code, 
+                success: false, 
+                msg: GetStatusResponse("internal_server_err").msg,
+                data: null
+            }; // return a 500 response to requester;
         
         }
  

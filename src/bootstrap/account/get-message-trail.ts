@@ -3,13 +3,13 @@ export const GetMessageTrail = async (id:string) => {
     const { MessageTrail, Account } = require("../../core/database/model-listings");
     const { Logger } = require("../../log");
     const { IfEmpty } = require("../../helpers");
-    const { Encrypt } = require("../../core/security");
+    // const { Encrypt } = require("../../core/security");
     const { GetStatusResponse } = require("../../core/data/status-response");
      
     try {
 
         let messages:any =  await MessageTrail.findAll({
-                                where: { id },
+                                where: { message_id: id },
                                 include:  [{
                                     model: Account,
                                     attributes: ["fullname","username","photo"],
@@ -17,19 +17,13 @@ export const GetMessageTrail = async (id:string) => {
                                 }]
                             });
 
-        if(!IfEmpty(messages))  return { 
-                                    success: true, 
-                                    code: GetStatusResponse("success").code, 
-                                    msg: GetStatusResponse("success").msg, 
-                                    data: Encrypt(messages)
-                                }
+        return { 
+            success: true, 
+            code: GetStatusResponse("success").code, 
+            msg: GetStatusResponse("success").msg, 
+            data: messages
+        }
 
-        else return { 
-                        success: false, 
-                        code: GetStatusResponse("not_found").code, 
-                        msg: GetStatusResponse("not_found").msg, 
-                        data: null 
-                    }
 
     } 
     catch (error:any) {
@@ -37,6 +31,7 @@ export const GetMessageTrail = async (id:string) => {
         return  { 
                     code: GetStatusResponse("internal_server_err").code, 
                     success: false, 
+                    data: null,
                     msg: GetStatusResponse("internal_server_err").msg
                 }; // return a 500 response to requester;
     }

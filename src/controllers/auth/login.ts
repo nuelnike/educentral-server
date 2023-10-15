@@ -1,14 +1,14 @@
 import type {Request, Response} from 'express';
 const bcrypt = require('bcrypt');
-const { Logger } = require("../../log");
-const { IfEmpty, ValidEmailAddress } = require("../../helpers");
-const { GetStatusResponse } = require("../../core/data/status-response");
-const { StatusCode } = require("../../core/data");
-const { GenerateToken } = require("../../helpers/generator");
-const { Encrypt, Decrypt } = require("../../core/security");
-const { GetAccount } = require("../../bootstrap/account/get-account");
-const { SaveAccountSession } = require("../../bootstrap/account/save-account-session");
-const { SendMail } = require("../../core/mail");
+import { Logger } from "../../log";
+import { IfEmpty, ValidEmailAddress } from "../../helpers";
+import { GetStatusResponse } from "../../core/data/status-response";
+import { StatusCode } from "../../core/data";
+import { GenerateToken } from "../../helpers/generator";
+import { Encrypt, Decrypt } from "../../core/security";
+import { GetAccount } from "../../bootstrap/account/get-account";
+import { SaveAccountSession } from "../../bootstrap/account/save-account-session";
+import { SendMail } from "../../core/mail";
 
 module.exports = (router:any) => {  
  
@@ -43,7 +43,9 @@ module.exports = (router:any) => {
 
           account = await GetAccount("email", email);
           if(account?.success) {
+
             account = account.data;
+
             if (bcrypt.compareSync(password, account.password)) { // Encrypt AND CHECK ACCOUNT PASSWORD MATCH  
                 
               if (account.status_id === StatusCode.inactive){
@@ -86,6 +88,7 @@ module.exports = (router:any) => {
                       ratings: account.ratings,
                       school: account.school,
                       status: account.status,
+                      subscriptions: account.subscriptions,
                       updated_at: account.updated_at,
                       token
                     }

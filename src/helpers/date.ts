@@ -123,7 +123,18 @@ export const GetMilliSec = (typ:string = "mins", x:number = 5):number => {
         default:
         return 0;
     }
-}  
+} 
+
+
+export const GetFutureDateTimeStamp = (date:any = "", days:number = 7) => {
+    let now = new Date(date);
+    return GetDateFromTimeStamp(now.setDate(now.getDate() + days));
+}
+
+export const GetDateFromTimeStamp = (timestamp:any) => {
+    let dateFormat= new Date(timestamp);
+    return dateFormat.getFullYear()+'-'+(dateFormat.getMonth()+1)+'-'+dateFormat.getDate()+' '+dateFormat.getHours()+":"+dateFormat.getMinutes()+":"+dateFormat.getSeconds();
+}
   
 export const ReadableDate = (d:any):string => {  
     const dd:any = new Date(`${d}`) 

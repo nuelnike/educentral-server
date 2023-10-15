@@ -1,5 +1,5 @@
 import { GetItemByKey } from "../../helpers/array-manipulation";
-const { Subscription, Account, Payment, Package, Status } = require("../../core/database/model-listings"); // import DataHive model selector
+const { Subscription, Account, Payment, Package, Status, Package_tier } = require("../../core/database/model-listings"); // import DataHive model selector
 const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
 const { Logger } = require("../../log"); // import logger function
 const { IfEmpty } = require("../../helpers"); // import IfEmpty function
@@ -34,9 +34,9 @@ export const GetSubscriptions = async (id:any, typ:string) => {
     const DBOps = async () => {
 
         try {
-            let qry:any = {typ: id}
             data = await    Subscription.findAll({
                                 where: { [typ]: id },
+                                order: [["created_at", "DESC"]],
                                 include: [ 
                                     {
                                         model: Status,
@@ -54,6 +54,11 @@ export const GetSubscriptions = async (id:any, typ:string) => {
                                     },
                                     {
                                         model: Package,
+                                        attributes: ["name"],
+                                        required: false
+                                    },
+                                    {
+                                        model: Package_tier,
                                         attributes: ["name"],
                                         required: false
                                     }  

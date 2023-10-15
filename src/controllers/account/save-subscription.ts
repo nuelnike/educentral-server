@@ -1,15 +1,15 @@
 import type {Request, Response} from 'express';
-const { Logger } = require("../../log");
-const { GetStatusResponse } = require("../../core/data/status-response");
-const { Decrypt } = require("../../core/security");
-const { SaveSubscription } = require("../../bootstrap/account/save-subscription");
+import { Logger } from "../../log";
+import { GetStatusResponse } from "../../core/data/status-response";
+import { Decrypt } from "../../core/security";
+import { SaveSubscription } from "../../bootstrap/account/save-subscription";
 // const { SaveSubscription } = require("../../bootstrap/account/save-subscription");
 const { ValidateSession } = require(`../../core/middlewares/validate-req`);
-const { IfEmpty } = require("../../helpers");
-const { GenerateRandomString } = require("../../helpers/generator");
+import { IfEmpty } from "../../helpers";
+import { GetFutureDateTimeStamp } from "../../helpers/date";
+import { GenerateRandomString } from "../../helpers/generator";
 
 module.exports = (router:any) => {  
- 
  
     //Get subscriptions
     router.post('/save-subscription', ValidateSession, (req:Request, res:Response) => {
@@ -27,7 +27,8 @@ module.exports = (router:any) => {
         else{
             (async () => {
             try{
-                payload.id = GenerateRandomString(20)
+                payload.id = GenerateRandomString(20);
+                console.log(payload);
                 let result:any = await SaveSubscription(payload);
                 return res.json(result);
             }

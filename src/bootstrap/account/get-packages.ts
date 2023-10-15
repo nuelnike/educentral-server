@@ -1,6 +1,6 @@
 export const GetPackages = async () => { 
 
-    const { Package, Package_tiers } = require("../../core/database/model-listings"); // import DataHive model selector
+    const { Package, Package_tier } = require("../../core/database/model-listings"); // import DataHive model selector
     const { Get, Save } = require("../../libs/redis"); // import Redis Get & Save functions
     const { Logger } = require("../../log"); // import logger function
     const { IfEmpty } = require("../../helpers"); // import IfEmpty function
@@ -36,7 +36,7 @@ export const GetPackages = async () => {
                 order: [["name", "ASC"]],
                 include: [
                     {
-                        model: Package_tiers,
+                        model: Package_tier,
                         required: false
                     }]
                 });
