@@ -29,12 +29,20 @@ export const CategorizeSchools = async (payload:any) => {
             }
             else query = null;   
 
+            let category:any = {};
+            if(IfEmpty(payload.category_id)) category = {
+                                                            [Op.and]: [
+                                                                { category_id: { [Op.not]: null }}
+                                                            ]
+                                                        }
+            else category = { 
+                                category_id: payload.category_id 
+                            };
+
 
             categories =  await   SchoolCategory.findAll({
                                                 order: [["created_at", "DESC"]],
-                                                where: {
-                                                    [Op.or]: [{ category_id: payload.category_id }, { category_id: 6 }]
-                                                },
+                                                where: category,
                                                 include: [
                                                     {
                                                         model: School,
@@ -115,7 +123,7 @@ export const CategorizeSchools = async (payload:any) => {
 
         } 
         catch (error:any) {
-            Logger('error', "Failed execution: failed to fetch schools: "+ error.message); // log error message to .log file 
+            Logger('engine', "Failed execution: failed to fetch schools: "+ error.message); // log error message to .log file 
             return { code: GetStatusResponse("internal_server_err").code, success: false, msg: GetStatusResponse("internal_server_err").msg }; // return a 500 response to requester;
         }
     };

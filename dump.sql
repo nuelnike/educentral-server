@@ -44,9 +44,9 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `status_id`, `city_id`, `state_id`, `country_id`, `acct_typ`, `fullname`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`, `photo`, `ratings`, `intro_video`, `about`, `created_at`, `updated_at`) VALUES
 ('15zAxulQbnjUrkaZK71t',	1,	NULL,	42,	1,	'professional',	'nhgjhkjhjh',	'hgjvnvnvgjhgh',	'ghkhjH@Jhhkj.jhgj',	'$2b$10$XuGk4fD9EPIzgLz7Lmle4.71Xw8eFedyGE/oX00WUv7RD.I/25xPS',	'9809098',	'hjgjgjhg',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:37:16',	'2023-09-04 21:37:16'),
-('4ZxTjiY7XRH1pc8SBCIM',	1,	NULL,	2622,	158,	'school',	'khjjkhkjh',	'dsfdsdas',	'dfssdw@ewfew.edgv',	'$2b$10$gM2lShs6pnBBJAuaywuib.XPeW.TTaOP.CSSksu.66aSxzmtCFIQ.',	'896778789789',	'uyjhkjh',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:37:57',	'2023-09-04 21:37:57'),
+('4ZxTjiY7XRH1pc8SBCIM',	1,	NULL,	2622,	160,	'school',	'school 2',	'dsfdsdas',	'dfssdw@ewfew.edgv',	'$2b$10$gM2lShs6pnBBJAuaywuib.XPeW.TTaOP.CSSksu.66aSxzmtCFIQ.',	'896778789789',	'uyjhkjh',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:37:57',	'2023-10-19 20:15:49'),
 ('pFgmCmAn5T7XJZqXfeon',	1,	5909,	42,	1,	'user',	'ghfhjfghf',	'gfhgfhg',	'emmanuelikennaogbonna@gmail.com',	'$2b$10$l/cGkK9jdCcz8Mq5BenncO6MymNDMwgcheKQj84Rk00YVWYMjT.Zu',	'0988098908898',	'234',	'2006-10-03',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 20:56:10',	'2023-09-08 13:35:28'),
-('sdWbJPV8RjX0a0IRoBLQ',	1,	30692,	2647,	160,	'school',	'hjkjgjhg',	'jghkjhjkhjh',	'khkjhkjhkjh@JKhkjh.hgfghfhgf',	'$2b$10$K4cgjl0zKYszgtLPYWG8v.TplUGQCE0LXfxH2JPaD6CIZPuME7XR6',	'987987987',	'adfwdw',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:31:14',	'2023-09-04 21:31:14'),
+('sdWbJPV8RjX0a0IRoBLQ',	1,	30692,	2647,	160,	'school',	'school 1',	'jghkjhjkhjh',	'khkjhkjhkjh@JKhkjh.hgfghfhgf',	'$2b$10$K4cgjl0zKYszgtLPYWG8v.TplUGQCE0LXfxH2JPaD6CIZPuME7XR6',	'987987987',	'adfwdw',	'',	'male',	NULL,	'0',	NULL,	'After you finish, return to the console and run yarn cap open android. This will open android folder in AndroidStudio. Here you can change your Android files and run the application. ',	'2023-09-04 21:31:14',	'2023-10-19 19:18:41'),
 ('vfKHDyx0M80sF3F23Eo8',	1,	30985,	2671,	160,	'user',	'emmanuel ikenna',	'nuelnike',	'ae21965@gmail.com',	'$2b$10$5XPyRLmEwnRKrp8bjy8k6.WSBAyOYggLmtT2yeEHh7rVn6eZAMzAy',	'07066023435',	'23 street reeter',	'1990-12-06',	'male',	NULL,	'1',	NULL,	NULL,	'2023-07-30 17:14:52',	'2023-09-18 19:10:54'),
 ('wc5ipOLy6q2pdvTGxjep',	1,	6470,	185,	6,	'professional',	'kljlkjklj',	'nuelnike1kkjhk',	'jkhkjhKJH@KJhk.hjghjg',	'$2b$10$ihyG1ZKyUtMDvaWnk1xxGOatdSLLAOQCcJPHOTSSfdq.DUjEyeT5y',	'7897987',	'khjkjhjkh',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:33:57',	'2023-09-04 21:33:57'),
 ('WtB8ELeew2eKkRuOZFMl',	1,	5909,	42,	1,	'professional',	'jhjkhjkhkjhkjhj',	'hkhkjhkjhkjh',	'jhkjh@kjhk.hjghj',	'$2b$10$9mnSVLPONNJdi5gQOkEUwutGY1F0JdsuFaFVw8WhRUKVFJks.IKm6',	'9798098',	'hkjjkhjhkj',	'',	'male',	NULL,	'0',	NULL,	NULL,	'2023-09-04 21:17:38',	'2023-09-04 21:17:38');
@@ -79,15 +79,16 @@ CREATE TABLE `categories` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1,	'nusery',	'2023-05-15 13:36:03',	'2023-05-15 13:36:03'),
+(1,	'nusery',	'2023-05-15 13:36:03',	'2023-10-19 19:53:14'),
 (2,	'primary school',	'2023-05-15 13:36:11',	'2023-05-15 13:36:11'),
 (3,	'secondary school',	'2023-05-15 13:36:19',	'2023-05-15 13:36:19'),
 (4,	'college',	'2023-05-15 13:36:50',	'2023-05-15 13:36:50'),
 (5,	'university',	'2023-05-15 13:37:02',	'2023-05-15 13:37:02'),
-(6,	'all',	'2023-05-29 11:51:18',	'2023-05-29 11:51:18');
+(6,	'seminary',	'2023-05-29 11:51:18',	'2023-10-19 19:53:14'),
+(7,	'special skill',	'2023-05-29 11:51:18',	'2023-10-19 19:53:14');
 
 DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
@@ -46642,7 +46643,7 @@ CREATE TABLE `school_categories` (
 INSERT INTO `school_categories` (`id`, `school_id`, `category_id`, `created_at`, `updated_at`) VALUES
 (1,	'5GkRs9ZRXxteuqyPOWUZ',	3,	'2023-09-04 21:31:14',	'2023-09-04 21:31:14'),
 (2,	'5GkRs9ZRXxteuqyPOWUZ',	4,	'2023-09-04 21:31:14',	'2023-09-04 21:31:14'),
-(3,	'ICPyIWX7f1kE7ZYIr0LM',	1,	'2023-09-04 21:37:57',	'2023-09-04 21:37:57'),
+(3,	'ICPyIWX7f1kE7ZYIr0LM',	6,	'2023-09-04 21:37:57',	'2023-10-19 19:35:43'),
 (4,	'5GkRs9ZRXxteuqyPOWUZ',	5,	'2023-09-04 21:31:14',	'2023-09-04 21:31:14');
 
 DROP TABLE IF EXISTS `schools`;
@@ -50890,4 +50891,4 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2023-10-15 21:24:55
+-- 2023-10-20 12:55:33
