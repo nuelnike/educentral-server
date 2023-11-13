@@ -27,7 +27,7 @@ export const InitDBConnection = async() => {
         }
     });
  
-    console.log("Main Database Connected!");
+    // console.log("Main Database Connected!");
     DBConnection.sequelize = sequelize;
     return sequelize; 
 }

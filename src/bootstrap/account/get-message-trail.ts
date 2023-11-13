@@ -10,6 +10,7 @@ export const GetMessageTrail = async (id:string) => {
 
         let messages:any =  await MessageTrail.findAll({
                                 where: { message_id: id },
+                                order: [["created_at", "DESC"]],
                                 include:  [{
                                     model: Account,
                                     attributes: ["fullname","username","photo"],

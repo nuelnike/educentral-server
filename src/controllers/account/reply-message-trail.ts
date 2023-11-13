@@ -10,7 +10,8 @@ module.exports = (router:any) => {
     //Get messages
     router.post('/save-message-trail', (req:Request, res:Response) => {
 
-        let payload:any = Decrypt(req.body.payload);
+        let payload:any = req.body.payload;
+
         
         (async () => {
         try{
